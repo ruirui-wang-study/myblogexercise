@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wrr.mapper.TagMapper">
+
+    <select id="listTagPage" resultType="com.wrr.entity.Tag">
+        select id,
+        tag_name,
+        create_time,
+        update_time
+        from tb_tag
+        <if test="tagName!=null and tagName!=''">
+            where tag_name like CONCAT(CONCAT('%',#{tagName}),'%')
+        </if>
+        LIMIT #{current},#{size}
+    </select>
+</mapper>

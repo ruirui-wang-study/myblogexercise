@@ -1,0 +1,21 @@
+enable:
+  swagger2:true
+
+spring:
+  application:
+    name: blog-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: qwe@123
+
+
+
+
+#配置端口
+server:
+  port: 8090
+  servlet:
+    session:
+      timeout: 21600

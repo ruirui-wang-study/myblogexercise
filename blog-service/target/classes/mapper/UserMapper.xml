@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wrr.mapper.UserMapper">
+
+    <select id="getRoleByUserid" resultType="java.lang.String">
+        select role_name
+        from tb_role a,tb_user_role b
+        where b.user_id=#{id} AND
+              a.id=b.role_id
+
+    </select>
+    <select id="getUserByCondition" resultType="com.wrr.dto.UserDTO">
+        select a.avatar,
+               a.nickname,
+               a.update_time,
+               a.create_time,
+               a.is_silence,
+               c.role_name
+        from tb_user a,tb_user_role b,tb_role c
+        where a.id=b.user_id AND
+              c.id=b.role_id
+        <if test="userQueryVO.roleName!=null and userQueryVO.roleName!=''">
+            AND c.role_name=#{userQueryVO.roleName}
+        </if>
+        <if test="userQueryVO.nickName!=null and userQueryVO.nickName!=''">
+            AND a.nickname like CONCAT(CONCAT('%',#{userQueryVO.nickName}),'%')
+        </if>
+        LIMIT #{userQueryVO.current},#{userQueryVO.size}
+
+    </select>
+
+</mapper>
